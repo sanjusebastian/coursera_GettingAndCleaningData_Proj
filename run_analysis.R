@@ -25,13 +25,13 @@ rm(list=ls())
 # SECTION 1. Merge the training and the test sets to create one data set.
 
 #set working directory to the location where the UCI HAR Dataset was unzipped
-setwd('C:/Users/ssebastian3/Documents/UCI HAR Dataset');
+setwd('/home/sanju/UCI HAR Dataset');
 
 # Read in the data from files
 featurelist     = read.table('./features.txt',header=FALSE); #imports features.txt
 activitytypesdf = read.table('./activity_labels.txt',header=FALSE); #imports activity_labels.txt. labels/description for activityids
 subjecttraindf = read.table('./train/subject_train.txt',header=FALSE); #imports subject_train.txt. Contains subjectids
-xtraindf       = read.table('./train/x_train.txt',header=FALSE); #imports x_train.txt. x_train.txt contains all the meaasurements.
+xtraindf       = read.table('./train/X_train.txt',header=FALSE); #imports x_train.txt. x_train.txt contains all the meaasurements.
 ytraindf       = read.table('./train/y_train.txt',header=FALSE); #imports y_train.txt which the activity id ies corresponding to the activity measurements in x_train.txt
 
 # Assigin column names to the data imported above
@@ -50,7 +50,7 @@ traindf= cbind(ytraindf,subjecttraindf,xtraindf);
 
 # reading data from test dataset.follow same steps as traindf, before doing the final merge. except the features
 subjecttestdf = read.table('./test/subject_test.txt',header=FALSE); #imports subject_test.txt
-xtestdf       = read.table('./test/x_test.txt',header=FALSE); #imports x_test.txt
+xtestdf       = read.table('./test/X_test.txt',header=FALSE); #imports x_test.txt
 ytestdf       = read.table('./test/y_test.txt',header=FALSE); #imports y_test.txt
 
 # Repeating the steps on the on the test data
@@ -128,5 +128,5 @@ tidyData    = aggregate(finaldfNoActivityType[,names(finaldfNoActivityType) != c
 tidyData    = merge(tidyData,activitytypesdf,by='activityid',all.x=TRUE);
 
 # Export the tidyData set 
-write.table(tidyData, './tidyData.txt',row.names=TRUE,sep='\t');
+write.table(tidyData, './tidyData.txt',row.names=FALSE,sep='\t');
 # END of SECTION 5. Create a second, independent tidy data set with the average of each variable for each activity and each subject. 
